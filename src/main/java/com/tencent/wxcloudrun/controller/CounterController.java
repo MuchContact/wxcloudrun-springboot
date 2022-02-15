@@ -13,6 +13,8 @@ import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Map;
@@ -41,9 +43,24 @@ public class CounterController {
 
     @PostMapping(value = "/api", consumes = {MediaType.TEXT_XML_VALUE})
     String receiveMsg(@RequestBody BaseMessage body) {
-        logger.info(body.getContent());
-        babyService.newRecord(null);
-        return "success";
+        String content = body.getContent();
+        logger.info(content);
+        if ("1".equals(content.trim()) || content.startsWith("1,")){
+            String[] split = content.split(",");
+            if(split.length==1){
+
+                babyService.newRecord(null);
+            }else{
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                try {
+                    babyService.newRecord(format.parse(split[1]));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+            return "success";
+        }
+        return "ignore this msg";
     }
 
     /**

@@ -29,8 +29,8 @@
     </update>
     
     <insert id="insert">
-        INSERT INTO `BabyStretch`(`count`)
-        VALUE(1)
+        INSERT INTO `BabyStretch`(`count`, `createdAt`)
+        VALUE(1, #{ot})
     </insert>
 
 </mapper>

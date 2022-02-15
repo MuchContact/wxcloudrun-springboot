@@ -5,6 +5,8 @@ import com.tencent.wxcloudrun.model.Counter;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
+
 @Mapper
 public interface BabyMapper {
 
@@ -14,5 +16,5 @@ public interface BabyMapper {
 
   void clearCount(@Param("id") Integer id);
 
-    int insert();
+    int insert(@Param("ot")Date time);
 }

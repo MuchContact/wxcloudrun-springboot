@@ -5,6 +5,8 @@ import com.tencent.wxcloudrun.model.BabyStretch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class BabyService {
     final BabyMapper mapper;
@@ -13,8 +15,8 @@ public class BabyService {
         this.mapper = mapper;
     }
 
-    public void newRecord(BabyStretch stretch) {
-        mapper.insert();
+    public void newRecord(Date date) {
+        mapper.insert(date);
     }
 
 }
