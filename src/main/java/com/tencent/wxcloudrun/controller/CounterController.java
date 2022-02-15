@@ -7,11 +7,12 @@ import com.tencent.wxcloudrun.dto.CounterRequest;
 import com.tencent.wxcloudrun.model.Counter;
 import com.tencent.wxcloudrun.service.CounterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.List;
+import java.util.Map;
 
 /**
  * counter控制器
@@ -31,6 +32,14 @@ public class CounterController {
     @GetMapping(value = "/api")
     String validToken(@RequestParam String echostr) {
         return echostr;
+    }
+
+    @PostMapping(value = "/api")
+    String receiveMsg(Map body) {
+        logger.info(body.keySet().toString());
+        String content = "Content";
+        logger.info(body.get(content)==null?"null":body.get(content).toString());
+       return "success";
     }
 
     /**
