@@ -8,6 +8,7 @@ import com.tencent.wxcloudrun.model.Counter;
 import com.tencent.wxcloudrun.service.CounterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -34,8 +35,8 @@ public class CounterController {
         return echostr;
     }
 
-    @PostMapping(value = "/api")
-    String receiveMsg(Map body) {
+    @PostMapping(value = "/api", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    String receiveMsg(@RequestBody Map body) {
         logger.info(body.keySet().toString());
         String content = "Content";
         logger.info(body.get(content)==null?"null":body.get(content).toString());
