@@ -39,7 +39,7 @@ public class CounterController {
         return echostr;
     }
 
-    @PostMapping(value = "/api", consumes = {MediaType.APPLICATION_XML_VALUE})
+    @PostMapping(value = "/api", consumes = {MediaType.TEXT_XML_VALUE})
     String receiveMsg(@RequestBody BaseMessage body) {
         logger.info(body.getContent());
         babyService.newRecord(null);
