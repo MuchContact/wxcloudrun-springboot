@@ -1,5 +1,7 @@
 package com.tencent.wxcloudrun.controller;
 
+import com.tencent.wxcloudrun.dto.BaseMessage;
+import com.tencent.wxcloudrun.service.BabyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.tencent.wxcloudrun.config.ApiResponse;
@@ -23,10 +25,12 @@ import java.util.Map;
 public class CounterController {
 
     final CounterService counterService;
+    final BabyService babyService;
     final Logger logger;
 
-    public CounterController(@Autowired CounterService counterService) {
+    public CounterController(@Autowired CounterService counterService, @Autowired BabyService babyService) {
         this.counterService = counterService;
+        this.babyService = babyService;
         this.logger = LoggerFactory.getLogger(CounterController.class);
     }
 
@@ -35,12 +39,11 @@ public class CounterController {
         return echostr;
     }
 
-    @PostMapping(value = "/api", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    String receiveMsg(@RequestBody Map body) {
-        logger.info(body.keySet().toString());
-        String content = "Content";
-        logger.info(body.get(content)==null?"null":body.get(content).toString());
-       return "success";
+    @PostMapping(value = "/api", consumes = {MediaType.APPLICATION_XML_VALUE})
+    String receiveMsg(@RequestBody BaseMessage body) {
+        logger.info(body.getContent());
+        babyService.newRecord(null);
+        return "success";
     }
 
     /**
